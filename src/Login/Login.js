@@ -3,7 +3,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Banner from '../Img/img.png'
 import Logo from '../Img/logo.png'
-import { Link } from "@mui/material";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const Login = () => {
     const [password, setPassword] = useState("")
@@ -22,7 +22,7 @@ const Login = () => {
         e.preventDefault();
         setPassword(e.target.value)
 
-        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/.test(password)) {
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{5,})/.test(password)) {
             setPasswordError('Invalid password');
             return;
         }
@@ -72,7 +72,7 @@ const Login = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                             </svg>
-                            <input className="pl-2 outline-none border-none w-full"
+                            <input className="pl-2 pb-1 outline-none border-none w-full"
                                 type="email"
                                 name="email"
                                 autoComplete="email"
@@ -97,7 +97,7 @@ const Login = () => {
                                 required
                                 type={values.showPassword ? "text" : "password"}
                                 className="w-full pl-2 outline-none border-none"
-                                placeholder="*****"
+                                placeholder='Enter Password'
                                 onChange={handlePasswordChange}
                             />
 
