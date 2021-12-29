@@ -6,6 +6,7 @@ import Logo from '../Img/logo.png'
 import './Login.css'
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
+import validator from 'validator'
 
 const Login = () => {
     const [password, setPassword] = useState("")
@@ -22,29 +23,27 @@ const Login = () => {
     });
 
 
-    const handlePasswordChange = (e) => {
-        e.preventDefault();
-        setPassword(e.target.value)
+    const validate = (value) => {
 
-        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{5,})/.test(password)) {
-            setPasswordError('Invalid password');
-            return;
-        }
-        else {
-            setPasswordError('');
+        if (!validator.isStrongPassword(value, {
+            minLength: 6, minLowercase: 1,
+            minUppercase: 1, minNumbers: 1, minSymbols: 0
+        })) {
+            setPasswordError('Invalid password')
+        } else {
+            setPasswordError('')
             setPassValid('valid')
         }
     }
 
-    const handleEmailChange = (e) => {
-        e.preventDefault();
-        setEmail(e.target.value)
-        if (!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
-            setEmailError('Invalid email');
-            return;
-        }
-        else {
-            setEmailError('');
+
+    const validateEmail = (e) => {
+        var email = e.target.value
+
+        if (!validator.isEmail(email)) {
+            setEmailError('Invalid Email')
+        } else {
+            setEmailError('')
             setEmailValid('valid')
         }
     }
@@ -90,7 +89,7 @@ const Login = () => {
                                 name="email"
                                 id=""
                                 placeholder=" youremail@gmail.com"
-                                onChange={handleEmailChange}
+                                onChange={(e) => validateEmail(e)}
                                 required
                                 style={{ height: '50px', fontSize: '16px' }}
                             />
@@ -117,7 +116,7 @@ const Login = () => {
                                 required
                                 type={values.showPassword ? "text" : "password"}
                                 placeholder='&#11044; &#11044; &#11044; &#11044; &#11044; &#11044;'
-                                onChange={handlePasswordChange}
+                                onChange={(e) => validate(e.target.value)}
                                 style={{ fontSize: '16px', letterSpacing: '2px' }}
                             >
                             </input>
