@@ -8,12 +8,13 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
 import validator from 'validator'
 
-const Login = () => {
-
+const Test = () => {
+    const [password, setPassword] = useState("")
     const [passwordError, setPasswordError] = useState('')
     const [disabled, isDisabled] = useState(true);
     const [passValid, setPassValid] = useState('');
     const [emailValid, setEmailValid] = useState('');
+    const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
 
     const [values, setValues] = useState({
@@ -22,29 +23,35 @@ const Login = () => {
     });
 
 
-    const validate = (value) => {
-        console.log(value)
-
-        if (!validator.isStrongPassword(value, {
-            minLength: 6, minLowercase: 1,
-            minUppercase: 1, minNumbers: 1, minSymbols: 0
-        })) {
-            setPasswordError('Invalid password')
-        } else {
-            setPasswordError('')
+    const handlePasswordChange = (pass) => {
+        console.log(pass)
+        // setPassword(e.target.value)
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{5,})/.test(pass)) {
+            setPasswordError('Invalid password');
+            return;
+        }
+        else {
+            setPasswordError('');
             setPassValid('valid')
         }
+
     }
 
 
-    const validateEmail = (e) => {
-        var email = e.target.value
 
-        if (!validator.isEmail(email)) {
-            setEmailError('Invalid Email')
-        } else {
-            setEmailError('')
+    const handleEmailChange = (e) => {
+        // e.preventDefault();
+        // setEmail(e.target.value)
+        console.log(e)
+        if (!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(e)) {
+            console.log(e)
+            setEmailError('Invalid email');
+            return;
+        }
+        else {
+            setEmailError('');
             setEmailValid('valid')
+            setEmail(e)
         }
     }
 
@@ -61,7 +68,7 @@ const Login = () => {
             <div className="h-screen md:flex">
                 <div className="relative overflow-hidden md:flex w-1/2  i justify-around items-center hidden" style={{ backgroundColor: '#002E98' }}>
                     <div className="">
-                        <img className="pl-14 w-60 pt-10" src={Logo} alt="" />
+
                         <h1 className="text-4xl font-sans pl-14 pr-10 pt-8 pb-8" style={{ fontSize: 40, color: '#65B9FF' }}>End to end encryption</h1>
                         <p className="mt-1 pl-14 pr-20 pb-5" style={{ fontSize: '1.3em', color: '#65B9FF' }}>It offers a technical guarantee of privacies of every user.Be safe while communicating with the WORKFREELI APP.</p>
                         <img class="pt-10" src={Banner} alt="" />
@@ -89,7 +96,7 @@ const Login = () => {
                                 name="email"
                                 id=""
                                 placeholder=" youremail@gmail.com"
-                                onChange={(e) => validateEmail(e)}
+                                onChange={(e) => handleEmailChange(e.target.value)}
                                 required
                                 style={{ height: '50px', fontSize: '16px' }}
                             />
@@ -116,7 +123,7 @@ const Login = () => {
                                 required
                                 type={values.showPassword ? "text" : "password"}
                                 placeholder='&#11044; &#11044; &#11044; &#11044; &#11044; &#11044;'
-                                onChange={(e) => validate(e.target.value)}
+                                onChange={(e) => handlePasswordChange(e.target.value)}
                                 style={{ fontSize: '16px', letterSpacing: '2px' }}
                             >
                             </input>
@@ -185,4 +192,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Test;
