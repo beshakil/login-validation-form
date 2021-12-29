@@ -62,10 +62,10 @@ const Login = () => {
             <div className="h-screen md:flex">
                 <div className="relative overflow-hidden md:flex w-1/2  i justify-around items-center hidden" style={{ backgroundColor: '#002E98' }}>
                     <div className="">
-                        <img className="pl-14 w-60" src={Logo} alt="" />
+                        <img className="pl-14 w-60 pt-5" src={Logo} alt="" />
                         <h1 className="text-4xl font-sans pl-14 pr-10 pt-8 pb-8" style={{ fontSize: 40, color: '#65B9FF' }}>End to end encryption</h1>
-                        <p className="mt-1 pl-14 pr-20" style={{ fontSize: '1.3em', color: '#65B9FF' }}>It offers a technical guarantee of privacies of every user.Be safe while communicating with the WORKFREELI APP.</p>
-                        <img src={Banner} alt="" />
+                        <p className="mt-1 pl-14 pr-20 pb-5" style={{ fontSize: '1.3em', color: '#65B9FF' }}>It offers a technical guarantee of privacies of every user.Be safe while communicating with the WORKFREELI APP.</p>
+                        <img class="pt-10" src={Banner} alt="" />
                     </div>
                 </div>
                 <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
