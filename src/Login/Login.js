@@ -3,14 +3,18 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Banner from '../Img/img.png'
 import Logo from '../Img/logo.png'
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import './Login.css'
+import LockRoundedIcon from '@mui/icons-material/LockRounded';
+import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
 
 const Login = () => {
     const [password, setPassword] = useState("")
     const [passwordError, setPasswordError] = useState('')
     const [disabled, isDisabled] = useState(true);
-    const [valid, setValid] = useState('');
+    const [passValid, setPassValid] = useState('');
+    const [emailValid, setEmailValid] = useState('');
     const [email, setEmail] = useState('')
+    const [emailError, setEmailError] = useState('')
 
     const [values, setValues] = useState({
         password: "",
@@ -28,13 +32,21 @@ const Login = () => {
         }
         else {
             setPasswordError('');
-            setValid('valid')
+            setPassValid('valid')
         }
-
     }
 
     const handleEmailChange = (e) => {
+        e.preventDefault();
         setEmail(e.target.value)
+        if (!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
+            setEmailError('Invalid email');
+            return;
+        }
+        else {
+            setEmailError('');
+            setEmailValid('valid')
+        }
     }
 
     const handleClickShowPassword = () => {
@@ -47,116 +59,121 @@ const Login = () => {
 
     return (
         <div>
-            <div className="h-screen flex">
-                <div className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center">
+            <div className="h-screen md:flex">
+                <div className="relative overflow-hidden md:flex w-1/2  i justify-around items-center hidden" style={{ backgroundColor: '#002E98' }}>
                     <div className="">
-                        <img className="pt-5 pl-10 w-60" src={Logo} alt="" />
-                        <h1 className="text-white text-4xl font-sans pl-10 pr-10 pt-5 pb-5">Collaborative project,
-                            task management</h1>
-                        <p className="text-white mt-1 text-xl pl-10 pr-20">We introduced the different colored process streams combining into a work of art.</p>
+                        <img className="pl-14 w-60" src={Logo} alt="" />
+                        <h1 className="text-4xl font-sans pl-14 pr-10 pt-8 pb-8" style={{ fontSize: 40, color: '#65B9FF' }}>End to end encryption</h1>
+                        <p className="mt-1 pl-14 pr-20" style={{ fontSize: '1.3em', color: '#65B9FF' }}>It offers a technical guarantee of privacies of every user.Be safe while communicating with the WORKFREELI APP.</p>
                         <img src={Banner} alt="" />
                     </div>
                 </div>
-                <div className="flex w-1/2 justify-center items-center bg-white">
-                    <form onSubmit={handleFormSubmit} className="bg-white w-3/4">
+                <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
+                    <form onSubmit={handleFormSubmit} className="bg-white" style={{ width: '60%' }}>
                         <div className="text-center">
-                            <h1 className="text-gray-800 font-bold text-3xl mb-1">Hello! Welcome back.</h1>
-                            <p className="text-sm font-bold text-gray-600 mb-7">Sign into your account here</p>
+                            <h1 className="text-gray-800 font-bold" style={{ fontFamily: 'Source Sans Pro', fontSize: '26px', padding: '0px', marginBottom: '18px' }}>Hello! Welcome back.</h1>
+                            <p className="font-bold text-gray-600 mb-7" style={{ fontFamily: 'Source Sans Pro', fontSize: '16px' }}>Sign into your account here</p>
                         </div>
 
-                        <label className="block mb-2 text-sm font-bold text-gray-700" for="username">
+                        <label className="block mb-2 text-sm text-gray-700" for="username" style={{ fontFamily: 'Source Sans Pro', fontSize: '16px' }}>
                             Your Email
                         </label>
 
-                        <div className="flex items-center border-2 py-2 px-3 rounded-md mb-4">
-                            <div className="border-r-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        <div id="whoobe-7izhv" class=" flex flex-row">
+                            <span id="whoobe-plfl9" class="z-highest rounded-l-lg w-10 h-10 flex justify-center items-center text-2xl text-gray-400 border border-r-0" style={{ backgroundColor: '#E4E4E4', height: '50px', width: '50px' }} mode="render" block="">
+                                <svg aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 26 26">
+                                    <AlternateEmailRoundedIcon></AlternateEmailRoundedIcon>
                                 </svg>
-                            </div>
-                            <input className="pl-2 outline-none border-none w-full"
+                            </span>
+                            <input className="border border-gray-200 rounded-r-lg outline-none focus:ring-1 ring-blue-400 w-full pl-1"
                                 type="email"
                                 name="email"
-                                autoComplete="email"
                                 id=""
-                                placeholder="youremail@gmail.com"
+                                placeholder=" youremail@gmail.com"
                                 onChange={handleEmailChange}
                                 required
+                                style={{ height: '50px', fontSize: '16px' }}
                             />
-
-
                         </div>
-                        <label className="block mb-2 text-sm font-bold text-gray-700" for="username">
+
+                        {
+                            emailError && <p className="text-red-500">{emailError}</p>
+                        }
+
+
+                        <label className="pt-7 block mb-2 text-sm text-gray-700" for="username" style={{ fontFamily: 'Source Sans Pro', fontSize: '16px' }}>
                             Your Password
                         </label>
 
-                        <div className="flex items-center border-2 py-2 px-3 rounded-md">
-                            <div className="border-r-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2  text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                        <div id="whoobe-7izhv" class=" flex flex-row">
+                            <span id="whoobe-plfl9" class="z-highest rounded-l-lg w-10 h-10 flex justify-center items-center text-2xl text-gray-400 border border-r-0" style={{ backgroundColor: '#E4E4E4', height: '50px', width: '50px' }} mode="render" block="">
+                                <svg class="" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 26 26">
+                                    <LockRoundedIcon></LockRoundedIcon>
                                 </svg>
-                            </div>
+                            </span>
 
 
-                            <input
+                            <input class="border border-gray-200 outline-none focus:ring-1 ring-blue-400 w-full pl-1"
                                 required
                                 type={values.showPassword ? "text" : "password"}
-                                className="w-full pl-2 outline-none border-none"
-                                placeholder='Enter Password'
+                                placeholder='&#11044; &#11044; &#11044; &#11044; &#11044; &#11044;'
                                 onChange={handlePasswordChange}
-                            />
+                                style={{ fontSize: '16px', letterSpacing: '2px' }}
+                            >
+                            </input>
 
-
-                            <button onClick={handleClickShowPassword}> {values.showPassword ? <VisibilityIcon className="text-gray-400"></VisibilityIcon> : <VisibilityOffIcon className="text-gray-400"></VisibilityOffIcon>}</button>
-
+                            <span id="" class="z-highest rounded-r-lg w-10 h-10 flex justify-center items-center text-2xl text-gray-400 border border-r-0" style={{ backgroundColor: '#E4E4E4', height: '50px', width: '50px' }} mode="render" block="">
+                                <button class="-mt-1" onClick={handleClickShowPassword}> {values.showPassword ? <VisibilityIcon className="text-gray-400"></VisibilityIcon> : <VisibilityOffIcon className="text-gray-400"></VisibilityOffIcon>}</button>
+                            </span>
                         </div>
                         {
                             passwordError && <p className="text-red-500">{passwordError}</p>
                         }
-                        <p className="text-gray-500 text-sm pt-1">Minimum 6 Characters, One Lowercase & One Number</p>
+                        <p className="text-gray-500 text-sm pt-1 pb-3" style={{ fontFamily: 'Source Sans Pro', fontSize: '13px' }}>Minimum 6 Characters, One Lowercase & One Number</p>
 
 
                         <div className="flex items-center justify-between mt-3">
                             <div className="flex items-center">
                                 <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"></input>
-                                <label for="remember-me" className="ml-2 block text-sm text-gray-900">
+                                <label for="remember-me" className="ml-2 block text-sm text-gray-900" style={{ fontFamily: 'Source Sans Pro', fontSize: '13px' }}>
                                     Remember me
                                 </label>
                             </div>
 
                             <div className="text-sm">
-                                <a href="#" className="font-medium no-underline text-indigo-600 hover:text-indigo-500">
+                                <a href="#" className="font-medium no-underline text-indigo-600 hover:text-indigo-500" style={{ fontFamily: 'Source Sans Pro', fontSize: '13px' }}>
                                     Forgot your password?
                                 </a>
                             </div>
                         </div>
 
-                        <div className="mt-5">
+                        <div className="mt-7">
                             {
-                                valid && email ?
+                                passValid && emailValid ?
                                     <button
                                         type="submit"
-                                        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        className="group relative w-full flex justify-center pt-3 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        style={{ height: '50px', fontSize: '18px', fontFamily: 'Source Sans Pro' }}
                                     >
                                         Sign in
                                     </button>
                                     :
                                     <button
                                         type="submit"
-                                        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400"
+                                        className="group relative w-full flex justify-center pt-3 border border-transparent text-sm font-medium rounded-md text-white" style={{ backgroundColor: "#75A4DE", height: '50px', fontSize: '18px', fontFamily: 'Source Sans Pro' }}
                                         disabled={disabled}
                                     >
                                         Sign in
                                     </button>
                             }
                         </div>
-                        <div className="text-center pt-10">
-                            <p>Don't have an account? <a href="#" className="font-medium no-underline text-indigo-600 hover:text-indigo-500">
+                        <div className="text-center pt-10" style={{ fontFamily: 'Source Sans Pro', fontSize: '13px' }}>
+                            <p>Don't have an account? <a href="#" className="font-bold no-underline text-indigo-600 hover:text-indigo-500">
                                 Sign Up
                             </a></p>
-                            <p className="pt-10"><a href="#" className="font-medium no-underline text-indigo-600 hover:text-indigo-500">
+                            <p className="pt-8"><a href="#" className="font-bold no-underline text-indigo-600 hover:text-indigo-500">
                                 Privacy Policy
-                            </a> | <a href="#" className="font-medium no-underline text-indigo-600 hover:text-indigo-500">
+                            </a> | <a href="#" className="font-bold no-underline text-indigo-600 hover:text-indigo-500">
                                     Contact
                                 </a></p>
                         </div>
